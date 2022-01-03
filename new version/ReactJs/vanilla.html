@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+</head>
+    <body>
+        <span>Total clicks: 0</span>
+        <button id = "btn">Click me</button>
+    </body>
+    <script>
+        let counter = 0;
+        const button = document.getElementById("btn");
+        const span = document.querySelector("span");
+        function handleclick() {
+            counter = counter + 1;
+            span.innerText = `Total clicks: ${counter}`; //Element 내에서 사용자에게 보여지는 텍스트 값(counter)을 읽어온다.
+        }
+        button.addEventListener("click", handleclick); // click을 할 때 handleclick 함수를 실행한다.
+    </script>
+        
+</html>
