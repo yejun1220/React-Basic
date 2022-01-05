@@ -14,10 +14,10 @@
     function App() {
       const [counter, setCounter] = React.useState(0);
 
-      const onClick = () => setCounter(counter + 1); // {}, return 생략 가능
+      const onClick = () => setCounter((counter) => counter + 1); // {}, return 생략 가능
       return (
         <div>
-          <h3>Total clicks: {counter}</h3>
+          <h3>Total clicks: {counter}</h3>{" "}
           <button onClick={onClick}>Click me!</button>
         </div>
       );
