@@ -3,8 +3,8 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
   <!-- react-dom은 react element를 HTML에 두는 역할을 한다. -->
@@ -12,13 +12,36 @@
     const root = document.getElementById("root");
 
     function App() {
-      const [counter, setCounter] = React.useState(0);
+      const [minutes, setMinutes] = React.useState(0); // array로 반환
+      const onChange = (event) => setMinutes(event.target.value); // modifier 안 인자는 values를 바꿔주는 요소이다.
+      // const onChange = () => console.log(minutes);
+      const reset = () => setMinutes(0);
 
-      const onClick = () => setCounter((counter) => counter + 1); // {}, return 생략 가능
       return (
         <div>
-          <h3>Total clicks: {counter}</h3>{" "}
-          <button onClick={onClick}>Click me!</button>
+          <h1 className='Hi'>Super Converter</h1>
+          <div>
+            <label htmlFor='minutes'>Minutes</label>
+            <input
+              value={minutes}
+              id='minutes'
+              placeholder='Minutes' // input 안 글씨
+              type='number'
+              onChange={onChange} // 변화가 일어났을 때 {onChange} 살행한다, onChange가 없으면 변화가 일어나도 무반응이다.
+            />
+          </div>
+
+          <div>
+            <label htmlFor='hours'>Hours</label>
+            <input
+              value={Math.round(minutes / 60)}
+              id='hours'
+              placeholder='Hours'
+              type='number'
+              disabled
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
         </div>
       );
     }
