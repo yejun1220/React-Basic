@@ -12,10 +12,15 @@
     const root = document.getElementById("root");
 
     function App() {
-      const [minutes, setMinutes] = React.useState(0); // array로 반환
-      const onChange = (event) => setMinutes(event.target.value); // modifier 안 인자는 values를 바꿔주는 요소이다.
+      const [amount, setAmount] = React.useState(0); // array로 반환
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = (event) => setAmount(event.target.value); // modifier 안 인자는 values를 바꿔주는 요소이다.
       // const onChange = () => console.log(minutes);
-      const reset = () => setMinutes(0);
+      const reset = () => setAmount(0);
+      const onInvert = () => {
+        reset();
+        setInverted((current) => !current);
+      };
 
       return (
         <div>
@@ -23,25 +28,30 @@
           <div>
             <label htmlFor='minutes'>Minutes</label>
             <input
-              value={minutes}
+              value={inverted ? amount * 60 : amount}
               id='minutes'
               placeholder='Minutes' // input 안 글씨
               type='number'
               onChange={onChange} // 변화가 일어났을 때 {onChange} 살행한다, onChange가 없으면 변화가 일어나도 무반응이다.
+              disabled={inverted}
             />
           </div>
 
           <div>
             <label htmlFor='hours'>Hours</label>
             <input
-              value={Math.round(minutes / 60)}
+              value={inverted ? amount : Math.round(amount / 60)}
               id='hours'
               placeholder='Hours'
               type='number'
-              disabled
+              onChange={onChange}
+              disabled={!inverted}
             />
           </div>
           <button onClick={reset}>Reset</button>
+          <button onClick={onInvert}>
+            {inverted ? "Turn back" : "Invert"}
+          </button>
         </div>
       );
     }
